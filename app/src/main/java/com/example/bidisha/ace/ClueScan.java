@@ -30,6 +30,8 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ClueScan extends Activity {
     public long time_left,sec,mins,timeValue;
@@ -42,11 +44,55 @@ public class ClueScan extends Activity {
     private static final String SAVED_INSTANCE_URI = "uri";
     private static final String SAVED_INSTANCE_RESULT = "result";
     private int qNo = 0;
+    private static int i=0;
+    TextView currQ,question;
+    public static String[] clues = {"Clue1", "Clue2", "Clue3","Clue4","Clue5","Clue6","Clue7","Clue8","Clue9","Clue10"};
+    static String[]  rando=new String[5];
 
+
+    /***
+     * function to generate the random clues
+     * @param //savedInstanceState
+     */
+    void gen_clues()
+    {
+        /**
+         * creatiing the random clues array
+         */
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        for (int ii=0; ii<10; ii++) {
+            list.add(new Integer(ii));
+        }
+        Collections.shuffle(list);
+        for (int ii=0; ii<5; ii++) {
+            //System.out.println(list.get(i));
+            rando[ii]=clues[list.get(ii)];
+            //Toast.makeText(ClueScan.this,rando[ii],Toast.LENGTH_LONG).show();
+
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cluescan);
+
+
+        if(i==0)
+            gen_clues();
+
+
+
+        String valueS = Integer.toString(i+1);
+        currQ = (TextView) findViewById(R.id.currentQ);
+
+        question=(TextView)findViewById(R.id.clue);
+        question.setText(rando[i]);
+        currQ.setText(valueS);
+
+
+
+
+
         Button button = (Button) findViewById(R.id.scanQR);
         scanResults = (TextView) findViewById(R.id.scanResults);
         if (savedInstanceState != null) {
@@ -61,17 +107,17 @@ public class ClueScan extends Activity {
             }
         });
         Bundle b1 = getIntent().getExtras();
-        if(b1 !=null)
+        if(b1 !=null) {
             timeValue = b1.getLong("time");
 
-        else
-            timeValue=300000;
-        qNo = b1.getInt("question_no");
-        String valueS = Integer.toString(qNo);
-        TextView currQ = (TextView) findViewById(R.id.currentQ);
-        currQ.setText(valueS);
-        int q=b1.getInt("question_no");
-        TextView question=(TextView)findViewById(R.id.clue);
+        }
+        else {
+            timeValue = 300000;
+        }
+
+
+
+       /* TextView question=(TextView)findViewById(R.id.clue);
         switch (q)
         {
             case 1:
@@ -90,7 +136,7 @@ public class ClueScan extends Activity {
                 question.setText(getString(R.string.clue5));
                 break;
 
-        }
+        }*/
 
 
                 /*This is the code for timer*/
@@ -120,8 +166,11 @@ public class ClueScan extends Activity {
 
 
             public void onFinish() {
-                time_mins.setText("DO");
-                time_sec.setText("NE!");
+                Intent i=new Intent(ClueScan.this,ScoreCal.class);
+                startActivity(i);
+                ClueScan.this.finish();
+              /*  time_mins.setText("DO");
+                time_sec.setText("NE!");*/
             }
         }.start();
 
@@ -150,6 +199,7 @@ public class ClueScan extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == PHOTO_REQUEST && resultCode == RESULT_OK) {
             launchMediaScanIntent();
             try {
@@ -160,17 +210,55 @@ public class ClueScan extends Activity {
                     for (int index = 0; index < barcodes.size(); index++) {
                         Barcode code = barcodes.valueAt(index);
                         scanResults.setText(/*scanResults.getText() +*/code.displayValue + "\n");
-                        switch (qNo) {
-                            case 1:
-                                if (code.displayValue.compareToIgnoreCase(getString(R.string.ans1))==0) {
+
+
+                        // TextView currQ = (TextView) findViewById(R.id.currentQ);
+
+
+                        String valueS = Integer.toString(i+1);
+
+
+                        switch (i) {
+                            case 0:
+                                //setting the current question value
+                                currQ.setText(valueS);
+                                //Log.d("mesg",rando[i]);
+                                question.setText(rando[i]);
+
+
+                                if (code.displayValue.compareToIgnoreCase(rando[i]) == 0) {
                                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
                                             .show();
-                                    ((StoreGlobal)getApplication()).changeScore(5,time_left);
-                                    Intent i = new Intent(this, Questions.class);
+                                    ((StoreGlobal) getApplication()).changeScore(5, time_left);
+                                    i++;
+
+                                    Intent in = new Intent(this, ClueScan.class);
                                     //time left value
-                                    i.putExtra("time",time_left-500);
-                                    i.putExtra("question_no", qNo);
-                                    startActivity(i);
+                                    in.putExtra("time",time_left-500);
+
+                                    startActivity(in);
+                                    ClueScan.this.finish();
+                                } else {
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
+                                            .show();
+                                }
+                                break;
+                            case 1:
+
+                                currQ.setText(valueS);
+                                // question.setText(rando[i]);
+                                question.setText(rando[i]);
+
+                                if (code.displayValue.compareToIgnoreCase(rando[i]) == 0) {
+                                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
+                                            .show();
+                                    ((StoreGlobal) getApplication()).changeScore(5, time_left);
+                                    i++;
+                                    Intent in = new Intent(this, ClueScan.class);
+                                    //time left value
+                                    in.putExtra("time",time_left-500);
+
+                                    startActivity(in);
                                     ClueScan.this.finish();
                                 } else {
                                     Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
@@ -178,15 +266,19 @@ public class ClueScan extends Activity {
                                 }
                                 break;
                             case 2:
-                                if (code.displayValue.compareToIgnoreCase(getString(R.string.ans2))==0) {
+                                currQ.setText(valueS);
+                                // question.setText(rando[i]);
+                                question.setText(rando[i]);
+                                if (code.displayValue.compareToIgnoreCase(rando[i]) == 0) {
                                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
                                             .show();
-                                    ((StoreGlobal)getApplication()).changeScore(5,time_left);
-                                    Intent i = new Intent(this, Questions.class);
-                                    i.putExtra("question_no", qNo);
+                                    ((StoreGlobal) getApplication()).changeScore(5, time_left);
+                                    i++;
+                                    Intent in = new Intent(this, ClueScan.class);
                                     //time left value
-                                    i.putExtra("time",time_left-500);
-                                    startActivity(i);
+                                    in.putExtra("time",time_left-500);
+
+                                    startActivity(in);
                                     ClueScan.this.finish();
                                 } else {
                                     Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
@@ -194,15 +286,20 @@ public class ClueScan extends Activity {
                                 }
                                 break;
                             case 3:
-                                if (code.displayValue.compareToIgnoreCase(getString(R.string.ans3))==0) {
+                                currQ.setText(valueS);
+                                // question.setText(rando[i]);
+                                question.setText(rando[i]);
+                                if (code.displayValue.compareToIgnoreCase(rando[i]) == 0) {
                                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
                                             .show();
-                                    ((StoreGlobal)getApplication()).changeScore(5,time_left);
-                                    Intent i = new Intent(this, Questions.class);
-                                    i.putExtra("question_no", qNo);
+                                    ((StoreGlobal) getApplication()).changeScore(5, time_left);
+                                    i++;
+
+                                    Intent in = new Intent(this, ClueScan.class);
                                     //time left value
-                                    i.putExtra("time",time_left-500);
-                                    startActivity(i);
+                                    in.putExtra("time",time_left-500);
+
+                                    startActivity(in);
                                     ClueScan.this.finish();
                                 } else {
                                     Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
@@ -210,37 +307,27 @@ public class ClueScan extends Activity {
                                 }
                                 break;
                             case 4:
-                                if (code.displayValue.compareToIgnoreCase(getString(R.string.ans4))==0) {
+                                currQ.setText(valueS);
+                                // question.setText(rando[i]);
+                                question.setText(rando[i]);
+                                if (code.displayValue.compareToIgnoreCase(rando[i]) == 0) {
                                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
                                             .show();
-                                    ((StoreGlobal)getApplication()).changeScore(5,time_left);
-                                    Intent i = new Intent(this, Questions.class);
-                                    i.putExtra("question_no", qNo);
+                                    ((StoreGlobal) getApplication()).changeScore(5, time_left);
+                                    i++;
+
+                                    Intent in = new Intent(this, ClueScan.class);
                                     //time left value
-                                    i.putExtra("time",time_left-500);
-                                    startActivity(i);
+                                    in.putExtra("time",time_left-500);
+
+                                    startActivity(in);
                                     ClueScan.this.finish();
                                 } else {
                                     Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
                                             .show();
                                 }
                                 break;
-                            case 5:
-                                if (code.displayValue.compareToIgnoreCase(getString(R.string.ans5))==0) {
-                                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
-                                            .show();
-                                    ((StoreGlobal)getApplication()).changeScore(5,time_left);
-                                    Intent i = new Intent(this, Questions.class);
-                                    i.putExtra("question_no", qNo);
-                                    //time left value
-                                    i.putExtra("time",time_left-500);
-                                    startActivity(i);
-                                    ClueScan.this.finish();
-                                } else {
-                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
-                                            .show();
-                                }
-                                break;
+
 
 
                         }

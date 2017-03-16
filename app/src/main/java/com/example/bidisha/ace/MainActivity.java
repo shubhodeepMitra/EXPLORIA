@@ -53,11 +53,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                  * check for password
                  */
                 if (ansS.compareToIgnoreCase("EXPLORIA") == 0){
-                Intent i = new Intent(this,Questions.class);
-                i.putExtra("question_no",quesNo);
-                i.putExtra("time",t);
-                startActivity(i);
-                MainActivity.this.finish();
+                    Intent i = new Intent(this,ClueScan.class);
+                    // i.putExtra("question_no",quesNo);
+                    // i.putExtra("time",t);
+                    ((StoreGlobal) getApplication()).initialScore();
+                    startActivity(i);
+                    MainActivity.this.finish();
 
                 }
                 else

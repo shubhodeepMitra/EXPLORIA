@@ -12,6 +12,10 @@ public class StoreGlobal extends Application {
     {
         return score;
     }
+    public void initialScore()
+    {
+        score=0;
+    }
     public void changeScore(int x,float y)
     {
         double z=(y/1000)*0.1;
