@@ -62,6 +62,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 EditText ans = (EditText) findViewById(R.id.password);
                 String ansS = ans.getText().toString();
 
+
+                /**
+                 * @mitra00
+                 * fetching from the team name edit text
+                 */
+                EditText tName = (EditText) findViewById(R.id.name);
+                String name=tName.getText().toString();
+
+                /**
+                 * @mitra00
+                 * Initializing the global team name variable
+                 */
+                ((StoreGlobal) getApplication()).teamName(name);
+
+                /**
+                 * @mitra00
+                 * fetching the team name
+                 */
+
+
                 /**
                  * @mitra00
                  * check for password
@@ -77,6 +97,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     Intent i = new Intent(this,ClueScan.class);
                     // i.putExtra("question_no",quesNo);
                     // i.putExtra("time",t);
+
+                    /**
+                     * initiating the global score with zero
+                     */
                     ((StoreGlobal) getApplication()).initialScore();
                     startActivity(i);
                     MainActivity.this.finish();

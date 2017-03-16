@@ -116,6 +116,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:text="Scan Results"
+        android:textColor="#f44336"
+        android:textSize="20dp"
         android:id="@+id/scanResults" />
 
 

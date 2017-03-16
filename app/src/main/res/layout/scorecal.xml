@@ -8,11 +8,28 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Final Score is "
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="75dp"
+        android:text="SCORE CARD"
+        android:id="@+id/scoreCard"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:textColor="#FFFFFF"
         android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+
+        android:textSize="35dp"
+        android:textColor="#1de9b6"
+        android:id="@+id/teamName"
+        android:text="Team Name"
+        android:layout_alignBottom="@+id/scFinal"
+        android:layout_centerHorizontal="true"/>
+
+
+
 
     <TextView
         android:layout_width="wrap_content"

@@ -16,10 +16,24 @@ public class ScoreCal extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scorecal);
+
+        /**
+         * @mitra00
+         * print the score
+         */
         TextView sc = (TextView) findViewById(R.id.scFinal);
         int a = ((StoreGlobal) getApplication()).getGlobalScore();
         String b = Integer.toString(a);
         sc.setText(b);
+
+        /**
+         * print the team name
+         */
+        TextView ss = (TextView) findViewById(R.id.teamName);
+        String s = ((StoreGlobal) getApplication()).getTeamName();
+
+        ss.setText(s);
+
     }
 
 

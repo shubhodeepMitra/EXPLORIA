@@ -14,6 +14,11 @@ public class StoreGlobal extends Application {
     private int score;
 
     /**
+     * To store the team name
+     */
+    private String name;
+
+    /**
      *
      * @mitra00
      * return the global value of score
@@ -43,6 +48,27 @@ public class StoreGlobal extends Application {
         double z=(y/1000)*0.3;
         score+=x+z;
     }
+
+    /**
+     *
+     * @mitra00
+     * to get the team name
+     */
+    public String getTeamName()
+    {
+        return name;
+    }
+
+    /**
+     *
+     * @mitra00
+     * to set the team name
+     */
+    public void teamName(String s)
+    {
+        name=s;
+    }
+
 
     @Override
     public void onCreate() {
