@@ -76,12 +76,18 @@ public class ClueScan extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cluescan);
 
-
+        /**
+         * @mitra00
+         * to call the random generator only when the value of i is zero
+         */
         if(i==0)
             gen_clues();
 
 
-
+        /**
+         * @mitra00
+         * updating the field of the textview
+         */
         String valueS = Integer.toString(i+1);
         currQ = (TextView) findViewById(R.id.currentQ);
 
@@ -112,6 +118,10 @@ public class ClueScan extends Activity {
 
         }
         else {
+            /**
+             * @mitra00
+             * the limit for the time of the event
+             */
             timeValue = 300000;
         }
 

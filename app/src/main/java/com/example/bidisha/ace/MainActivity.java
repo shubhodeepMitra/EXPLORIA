@@ -13,7 +13,10 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
-    int quesNo=0;
+    /**
+     * @mitra00
+     * the variable t is for the time limit of the whole event
+     */
     long t=300000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Log.i("MainActivity","This is above activity_main");
         setContentView(R.layout.activity_main);
         Log.i("MainActivity","This is below activity_main");
+
+        /**
+         * @mitra00
+         * this is for the button that keeps the check of the the checkbox
+         * until the checkbox is not clicked one cannot start the app
+         */
         final Button start = (Button) findViewById(R.id.button2);
         CheckBox agree = (CheckBox) findViewById(R.id.checkBox);
         agree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -46,13 +55,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch (view.getId())
         {
             case R.id.button2:
+                /**
+                 * @mitra00
+                 * fetching the password form the edittext
+                 */
                 EditText ans = (EditText) findViewById(R.id.password);
                 String ansS = ans.getText().toString();
 
                 /**
+                 * @mitra00
                  * check for password
                  */
                 if (ansS.compareToIgnoreCase("EXPLORIA") == 0){
+
+
+                    /**
+                     * @mitra00
+                     * initiating the intent to the ClueScan class
+                     */
+
                     Intent i = new Intent(this,ClueScan.class);
                     // i.putExtra("question_no",quesNo);
                     // i.putExtra("time",t);

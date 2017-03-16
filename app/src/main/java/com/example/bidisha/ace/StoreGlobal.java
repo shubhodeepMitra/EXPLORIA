@@ -7,18 +7,40 @@ import android.app.Application;
  */
 
 public class StoreGlobal extends Application {
+    /**
+     * @mitra00
+     * to store the score of the team which is global
+     */
     private int score;
+
+    /**
+     *
+     * @mitra00
+     * return the global value of score
+     */
     public int getGlobalScore()
     {
         return score;
     }
+
+    /**
+     * mitra00
+     * initiating the score to be zero at each app call
+     * else the value is not resetted
+     */
     public void initialScore()
     {
         score=0;
     }
+
+    /**
+     * @mitra00
+     * change the variable score
+     *
+     */
     public void changeScore(int x,float y)
     {
-        double z=(y/1000)*0.1;
+        double z=(y/1000)*0.3;
         score+=x+z;
     }
 
