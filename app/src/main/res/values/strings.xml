@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">EXPLORIA</string>
+    <string name="ques1">This is the first question..lets start..app testing..fill in the question here</string>
+    <string name="ques2">This is the second question..lets start..app testing..fill in the question here</string>
+    <string name="ques3">This is the third question..lets start..app testing..fill in the question here</string>
+    <string name="ques4">This is the fourth question..lets start..app testing..fill in the question here</string>
+    <string name="ques5">This is the fifth question..lets start..app testing..fill in the question here</string>
+    <string name="ques6">This is the sixth question..lets start..app testing..fill in the question here</string>
+    <string name="clue1">This is clue 1.....</string>
+    <string name="clue2">This is clue 2.....</string>
+    <string name="clue3">This is clue 3.....</string>
+    <string name="clue4">This is clue 4.....</string>
+    <string name="clue5">This is clue 5.....</string>
+    <string name="rules">This is the rules section</string>
+    <string name="ans1">answer1</string>
+    <string name="ans2">answer2</string>
+    <string name="ans3">answer3</string>
+    <string name="ans4">answer4</string>
+    <string name="ans5">answer5</string>
+    <string name="ans6">answer6</string>
+    <string name="hint1">This is hint 1</string>
+    <string name="hint2">This is hint 2</string>
+    <string name="hint3">This is hint 3</string>
+    <string name="hint4">This is hint 4</string>
+    <string name="hint5">This is hint 5</string>
+    <string name="hint6">This is hint 6</string>
+
+
+</resources>
