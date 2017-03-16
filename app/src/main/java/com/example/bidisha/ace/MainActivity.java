@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -44,11 +46,25 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch (view.getId())
         {
             case R.id.button2:
+                EditText ans = (EditText) findViewById(R.id.password);
+                String ansS = ans.getText().toString();
+
+                /**
+                 * check for password
+                 */
+                if (ansS.compareToIgnoreCase("EXPLORIA") == 0){
                 Intent i = new Intent(this,Questions.class);
                 i.putExtra("question_no",quesNo);
                 i.putExtra("time",t);
                 startActivity(i);
                 MainActivity.this.finish();
+
+                }
+                else
+                {
+                    Toast.makeText(this, "Try again!!", Toast.LENGTH_SHORT)
+                            .show();
+                }
                 break;
         }
 
