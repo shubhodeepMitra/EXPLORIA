@@ -44,19 +44,21 @@ public class ClueScan extends Activity {
     private static final String SAVED_INSTANCE_URI = "uri";
     private static final String SAVED_INSTANCE_RESULT = "result";
     private int qNo = 0;
-    private static int i=0;
+    private  int i=0;
     TextView currQ,question;
     public static String[] clues = {"Clue1", "Clue2", "Clue3","Clue4","Clue5","Clue6","Clue7","Clue8","Clue9","Clue10"};
     static String[]  rando=new String[5];
 
 
     /***
+     * @mitra00
      * function to generate the random clues
      * @param //savedInstanceState
      */
     void gen_clues()
     {
         /**
+         * @mitra00
          * creatiing the random clues array
          */
         ArrayList<Integer> list = new ArrayList<Integer>();
@@ -75,6 +77,28 @@ public class ClueScan extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cluescan);
+
+        /**
+         * @mitra00
+         * receiving the values from the calling activity
+         */
+
+        Bundle b1 = getIntent().getExtras();
+        if(b1 !=null) {
+            timeValue = b1.getLong("time");
+            i=b1.getInt("question_no");
+
+        }
+        else {
+            /**
+             * @mitra00
+             * the limit for the time of the event
+             */
+            timeValue = 300000;
+        }
+
+
+
 
         /**
          * @mitra00
@@ -112,18 +136,6 @@ public class ClueScan extends Activity {
                         String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
             }
         });
-        Bundle b1 = getIntent().getExtras();
-        if(b1 !=null) {
-            timeValue = b1.getLong("time");
-
-        }
-        else {
-            /**
-             * @mitra00
-             * the limit for the time of the event
-             */
-            timeValue = 300000;
-        }
 
 
 
@@ -245,7 +257,8 @@ public class ClueScan extends Activity {
                                     Intent in = new Intent(this, ClueScan.class);
                                     //time left value
                                     in.putExtra("time",time_left-500);
-
+                                    //question number
+                                    in.putExtra("question_no",i);
                                     startActivity(in);
                                     ClueScan.this.finish();
                                 } else {
@@ -263,10 +276,11 @@ public class ClueScan extends Activity {
                                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
                                             .show();
                                     ((StoreGlobal) getApplication()).changeScore(5, time_left);
-                                    i++;
+                                    ++i;
                                     Intent in = new Intent(this, ClueScan.class);
                                     //time left value
                                     in.putExtra("time",time_left-500);
+                                    in.putExtra("question_no",i);
 
                                     startActivity(in);
                                     ClueScan.this.finish();
@@ -283,10 +297,12 @@ public class ClueScan extends Activity {
                                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
                                             .show();
                                     ((StoreGlobal) getApplication()).changeScore(5, time_left);
-                                    i++;
+                                    ++i;
                                     Intent in = new Intent(this, ClueScan.class);
                                     //time left value
                                     in.putExtra("time",time_left-500);
+                                    //question number
+                                    in.putExtra("question_no",i);
 
                                     startActivity(in);
                                     ClueScan.this.finish();
@@ -303,11 +319,13 @@ public class ClueScan extends Activity {
                                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
                                             .show();
                                     ((StoreGlobal) getApplication()).changeScore(5, time_left);
-                                    i++;
+                                    ++i;
 
                                     Intent in = new Intent(this, ClueScan.class);
                                     //time left value
                                     in.putExtra("time",time_left-500);
+                                    //question number
+                                    in.putExtra("question_no",i);
 
                                     startActivity(in);
                                     ClueScan.this.finish();
@@ -324,11 +342,13 @@ public class ClueScan extends Activity {
                                     Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
                                             .show();
                                     ((StoreGlobal) getApplication()).changeScore(5, time_left);
-                                    i++;
+                                    ++i;
 
                                     Intent in = new Intent(this, ClueScan.class);
                                     //time left value
                                     in.putExtra("time",time_left-500);
+                                    //question number
+                                    in.putExtra("question_no",i);
 
                                     startActivity(in);
                                     ClueScan.this.finish();

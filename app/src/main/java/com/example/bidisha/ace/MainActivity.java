@@ -18,6 +18,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
      * the variable t is for the time limit of the whole event
      */
     long t=300000;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,8 +97,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                      */
 
                     Intent i = new Intent(this,ClueScan.class);
-                    // i.putExtra("question_no",quesNo);
-                    // i.putExtra("time",t);
+                     i.putExtra("question_no",0);
+                     i.putExtra("time",t);
 
                     /**
                      * initiating the global score with zero

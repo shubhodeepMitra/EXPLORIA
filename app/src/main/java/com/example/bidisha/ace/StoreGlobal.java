@@ -25,7 +25,7 @@ public class StoreGlobal extends Application {
      */
     public int getGlobalScore()
     {
-        return score;
+        return score/10;
     }
 
     /**
@@ -45,7 +45,7 @@ public class StoreGlobal extends Application {
      */
     public void changeScore(int x,float y)
     {
-        double z=(y/1000)*0.3;
+        double z=(y/1000)*5.1;
         score+=x+z;
     }
 
