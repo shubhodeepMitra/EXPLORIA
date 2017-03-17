@@ -357,6 +357,17 @@ public class ClueScan extends Activity {
                                             .show();
                                 }
                                 break;
+                            case 5:
+
+                                /**
+                                 * @mitra00
+                                 * Calling the ScoreCal class after finishing all the questions
+                                 */
+                                Intent in=new Intent(ClueScan.this,ScoreCal.class);
+                                startActivity(in);
+                                ClueScan.this.finish();
+
+                                break;
 
 
 

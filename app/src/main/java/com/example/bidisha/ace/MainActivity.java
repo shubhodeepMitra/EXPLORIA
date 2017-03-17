@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                  * fetching from the team name edit text
                  */
                 EditText tName = (EditText) findViewById(R.id.name);
-                String name=tName.getText().toString();
+                String name=tName.getText().toString().trim();
 
                 /**
                  * @mitra00
@@ -86,9 +86,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 /**
                  * @mitra00
-                 * check for password
+                 * check for password and the name entered is not empty
                  */
-                if (ansS.compareToIgnoreCase("EXPLORIA") == 0){
+                if (ansS.compareToIgnoreCase("EXPLORIA") == 0 && name.length()>0){
 
 
                     /**

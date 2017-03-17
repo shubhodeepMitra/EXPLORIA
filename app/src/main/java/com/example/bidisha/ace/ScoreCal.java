@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Bidisha on 14-03-2017.
@@ -18,7 +19,7 @@ public class ScoreCal extends Activity {
         setContentView(R.layout.scorecal);
 
         /**
-         * @mitra00
+         *
          * print the score
          */
         TextView sc = (TextView) findViewById(R.id.scFinal);
@@ -27,12 +28,35 @@ public class ScoreCal extends Activity {
         sc.setText(b);
 
         /**
+         * @mitra00
          * print the team name
          */
         TextView ss = (TextView) findViewById(R.id.teamName);
         String s = ((StoreGlobal) getApplication()).getTeamName();
 
         ss.setText(s);
+
+        /**
+         * @mitra00
+         * to print the time left
+         */
+        TextView tLeft = (TextView) findViewById(R.id.timeLeft);
+        double aa = ((StoreGlobal) getApplication()).getTimeleft();
+        String bb = Double.toString(aa);
+        tLeft.setText("Time Left \n"+bb+"s");
+
+
+        ss.setText(s);
+
+        /**
+         * @mitra00
+         * toast to instruct them about further actions
+         */
+        Toast.makeText(this, "Take ScreenShot!!", Toast.LENGTH_SHORT)
+                .show();
+
+        Toast.makeText(this, "Report Back To Organizers", Toast.LENGTH_LONG)
+                .show();
 
     }
 

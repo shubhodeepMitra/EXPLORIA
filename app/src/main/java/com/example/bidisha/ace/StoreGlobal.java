@@ -14,13 +14,16 @@ public class StoreGlobal extends Application {
     private int score;
 
     /**
+     * to store time left
+     */
+    private double tleft;
+
+    /**
      * To store the team name
      */
     private String name;
 
     /**
-     *
-     * @mitra00
      * return the global value of score
      */
     public int getGlobalScore()
@@ -29,7 +32,7 @@ public class StoreGlobal extends Application {
     }
 
     /**
-     * mitra00
+     * @mitra00
      * initiating the score to be zero at each app call
      * else the value is not resetted
      */
@@ -39,13 +42,15 @@ public class StoreGlobal extends Application {
     }
 
     /**
-     * @mitra00
+     *
      * change the variable score
      *
      */
-    public void changeScore(int x,float y)
+    public void changeScore(int x,long y)
     {
-        double z=(y/1000)*5.1;
+        tleft=y/1000.0;
+
+        double z=(y/1000.0)*5.3;
         score+=x+z;
     }
 
@@ -67,6 +72,15 @@ public class StoreGlobal extends Application {
     public void teamName(String s)
     {
         name=s;
+    }
+
+    /**
+     * @mitra00
+     * Returning time left
+     */
+    public double getTimeleft()
+    {
+        return tleft;
     }
 
 
