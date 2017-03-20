@@ -52,7 +52,7 @@ public class ScoreCal extends Activity {
          * @mitra00
          * toast to instruct them about further actions
          */
-        Toast.makeText(this, "Take ScreenShot!!", Toast.LENGTH_SHORT)
+        Toast.makeText(this, "Take ScreenShot!!", Toast.LENGTH_LONG)
                 .show();
 
         Toast.makeText(this, "Report Back To Organizers", Toast.LENGTH_LONG)
@@ -67,7 +67,7 @@ public class ScoreCal extends Activity {
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
-                .setMessage("Are you sure you want to exit?")
+                .setMessage("EXIT?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -26,6 +26,8 @@ public class StoreGlobal extends Application {
     /**
      * return the global value of score
      */
+
+
     public int getGlobalScore()
     {
         return score/10;
@@ -50,7 +52,7 @@ public class StoreGlobal extends Application {
     {
         tleft=y/1000.0;
 
-        double z=(y/1000.0)*5.3;
+        double z=(y/1000.0)*.53;
         score+=x+z;
     }
 
@@ -81,6 +83,16 @@ public class StoreGlobal extends Application {
     public double getTimeleft()
     {
         return tleft;
+    }
+
+    /**
+     * @mitra00
+     * to set the time to zero if the time left is over and questions are unsolved
+     */
+
+    public void setTimeToZero()
+    {
+        tleft=0;
     }
 
 

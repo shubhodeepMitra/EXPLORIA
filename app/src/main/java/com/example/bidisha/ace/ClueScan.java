@@ -1,7 +1,6 @@
 package com.example.bidisha.ace;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,8 +14,10 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
@@ -33,7 +34,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ClueScan extends Activity {
+public class ClueScan extends AppCompatActivity {
     public long time_left,sec,mins,timeValue;
     private static final String LOG_TAG = "Barcode Scanner API";
     private static final int PHOTO_REQUEST = 10;
@@ -46,8 +47,11 @@ public class ClueScan extends Activity {
     private int qNo = 0;
     private  int i=0;
     TextView currQ,question;
-    public static String[] clues = {"Clue1", "Clue2", "Clue3","Clue4","Clue5","Clue6","Clue7","Clue8","Clue9","Clue10"};
-    static String[]  rando=new String[5];
+    public static String[] clues = new String[20];
+    //first clue
+    String clue1;
+    static String[]  rando=new String[10];
+
 
 
     /***
@@ -62,16 +66,18 @@ public class ClueScan extends Activity {
          * creatiing the random clues array
          */
         ArrayList<Integer> list = new ArrayList<Integer>();
-        for (int ii=0; ii<10; ii++) {
+        for (int ii=0; ii<19; ii++) {
             list.add(new Integer(ii));
         }
         Collections.shuffle(list);
-        for (int ii=0; ii<5; ii++) {
+        for (int ii=0; ii<10; ii++) {
             //System.out.println(list.get(i));
             rando[ii]=clues[list.get(ii)];
             //Toast.makeText(ClueScan.this,rando[ii],Toast.LENGTH_LONG).show();
 
         }
+        //first clue same for all
+        rando[0]="This app was recently inaugurated by Mysore MLA";
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +100,28 @@ public class ClueScan extends Activity {
              * @mitra00
              * the limit for the time of the event
              */
-            timeValue = 300000;
+            timeValue = 7200000;
         }
-
+        clues[0]="Careers like rockets don’t always take on time! The trick is to keep them running always.";
+        clues[1]="The place doesn’t smell pleasant! A new journey starts and the Earth Feels Happy..";
+        clues[2]="I am dark and produce light and i can make something or destroy everything. Inspite of that i’m used everywhere.";
+        clues[3]="akivuy is a place where everyone have their eyes on!";
+        clues[4]="No one presses my first button now a days and i’m on top of all";
+        clues[5]="Find me in the center of the place where sounds start and turn off";
+        clues[6]="Take away standing infinity from Dhaku Mangal Singh";
+        clues[7]="Under pressure is the only way i work and by myself is the only way i’m hurt and mysore express inaugurated me";
+        clues[8]="Hercules has made his mark in sports";
+       // clue1="This app was recently inaugurated by Mysore MLA";
+        clues[10]="Some like me hot, Some like me cold, Some like me mild,Some like me bold";
+        clues[11]="All husbands want their wives to be this";
+        clues[12]="The best solution to attract the girls";
+        clues[13]="I can tell you where we stand in the country";
+        clues[14]="I start when the VVCE fest stops";
+        clues[15]="The lead executive";
+        clues[16]="I’m the lab which contains THINGS";
+        clues[17]="Railway Workshop, BEML, Silk Factory and NIE have this incommon";
+        clues[18]="There’s a place near by you will want to visit A portal place where people greet";
+        clues[9]="I’m the only place whose identity remains the same even after you flip me horizontally";
 
 
 
@@ -127,14 +152,26 @@ public class ClueScan extends Activity {
         scanResults = (TextView) findViewById(R.id.scanResults);
         if (savedInstanceState != null) {
             imageUri = Uri.parse(savedInstanceState.getString(SAVED_INSTANCE_URI));
-            scanResults.setText(savedInstanceState.getString(SAVED_INSTANCE_RESULT));
+            //scanResults.setText(savedInstanceState.getString(SAVED_INSTANCE_RESULT));
         }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ActivityCompat.requestPermissions(ClueScan.this, new
-                        String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
-            }
+
+                if (ContextCompat.checkSelfPermission(ClueScan.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(ClueScan.this, new
+                            String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_PERMISSION);
+
+                }
+                else
+                {
+                    takePicture();
+                }
+
+                }
         });
 
 
@@ -178,7 +215,7 @@ public class ClueScan extends Activity {
                 if(mins<10)
                     time_mins.setText("0"+millisUntilFinished / (1000*60));
                 else
-                    time_mins.setText("0"+millisUntilFinished / (1000*60));
+                    time_mins.setText(""+millisUntilFinished / (1000*60));
                 if(sec<10)
                     time_sec.setText(": 0" + (millisUntilFinished / 1000)%60);
                 else
@@ -189,10 +226,14 @@ public class ClueScan extends Activity {
 
             public void onFinish() {
                 Intent i=new Intent(ClueScan.this,ScoreCal.class);
+                /**
+                 * @mitra00
+                 * setting the time left to zero
+                 */
+                ((StoreGlobal) getApplication()).setTimeToZero();
                 startActivity(i);
                 ClueScan.this.finish();
-              /*  time_mins.setText("DO");
-                time_sec.setText("NE!");*/
+
             }
         }.start();
 
@@ -231,12 +272,15 @@ public class ClueScan extends Activity {
                     SparseArray<Barcode> barcodes = detector.detect(frame);
                     for (int index = 0; index < barcodes.size(); index++) {
                         Barcode code = barcodes.valueAt(index);
-                        scanResults.setText(/*scanResults.getText() +*/code.displayValue + "\n");
+                        //scanResults.setText(/*scanResults.getText() +*/code.displayValue + "\n");
 
 
                         // TextView currQ = (TextView) findViewById(R.id.currentQ);
 
-
+                        /**
+                         * Comparing with the questions
+                         *
+                         */
                         String valueS = Integer.toString(i+1);
 
 
@@ -262,7 +306,7 @@ public class ClueScan extends Activity {
                                     startActivity(in);
                                     ClueScan.this.finish();
                                 } else {
-                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_LONG)
                                             .show();
                                 }
                                 break;
@@ -285,7 +329,7 @@ public class ClueScan extends Activity {
                                     startActivity(in);
                                     ClueScan.this.finish();
                                 } else {
-                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_LONG)
                                             .show();
                                 }
                                 break;
@@ -307,7 +351,7 @@ public class ClueScan extends Activity {
                                     startActivity(in);
                                     ClueScan.this.finish();
                                 } else {
-                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_LONG)
                                             .show();
                                 }
                                 break;
@@ -330,7 +374,7 @@ public class ClueScan extends Activity {
                                     startActivity(in);
                                     ClueScan.this.finish();
                                 } else {
-                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_LONG)
                                             .show();
                                 }
                                 break;
@@ -353,22 +397,132 @@ public class ClueScan extends Activity {
                                     startActivity(in);
                                     ClueScan.this.finish();
                                 } else {
-                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_SHORT)
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_LONG)
                                             .show();
                                 }
                                 break;
                             case 5:
+                                //setting the current question value
+                                currQ.setText(valueS);
+                                //Log.d("mesg",rando[i]);
+                                question.setText(rando[i]);
 
-                                /**
-                                 * @mitra00
-                                 * Calling the ScoreCal class after finishing all the questions
-                                 */
-                                Intent in=new Intent(ClueScan.this,ScoreCal.class);
-                                startActivity(in);
-                                ClueScan.this.finish();
 
+                                if (code.displayValue.compareToIgnoreCase(rando[i]) == 0) {
+                                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
+                                            .show();
+                                    ((StoreGlobal) getApplication()).changeScore(5, time_left);
+                                    i++;
+
+                                    Intent in = new Intent(this, ClueScan.class);
+                                    //time left value
+                                    in.putExtra("time",time_left-500);
+                                    //question number
+                                    in.putExtra("question_no",i);
+                                    startActivity(in);
+                                    ClueScan.this.finish();
+                                } else {
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_LONG)
+                                            .show();
+                                }
                                 break;
+                            case 6:
+                                //setting the current question value
+                                currQ.setText(valueS);
+                                //Log.d("mesg",rando[i]);
+                                question.setText(rando[i]);
 
+
+                                if (code.displayValue.compareToIgnoreCase(rando[i]) == 0) {
+                                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
+                                            .show();
+                                    ((StoreGlobal) getApplication()).changeScore(5, time_left);
+                                    i++;
+
+                                    Intent in = new Intent(this, ClueScan.class);
+                                    //time left value
+                                    in.putExtra("time",time_left-500);
+                                    //question number
+                                    in.putExtra("question_no",i);
+                                    startActivity(in);
+                                    ClueScan.this.finish();
+                                } else {
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_LONG)
+                                            .show();
+                                }
+                                break;
+                            case 7:
+                                //setting the current question value
+                                currQ.setText(valueS);
+                                //Log.d("mesg",rando[i]);
+                                question.setText(rando[i]);
+
+
+                                if (code.displayValue.compareToIgnoreCase(rando[i]) == 0) {
+                                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
+                                            .show();
+                                    ((StoreGlobal) getApplication()).changeScore(5, time_left);
+                                    i++;
+
+                                    Intent in = new Intent(this, ClueScan.class);
+                                    //time left value
+                                    in.putExtra("time",time_left-500);
+                                    //question number
+                                    in.putExtra("question_no",i);
+                                    startActivity(in);
+                                    ClueScan.this.finish();
+                                } else {
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_LONG)
+                                            .show();
+                                }
+                                break;
+                            case 8:
+                                //setting the current question value
+                                currQ.setText(valueS);
+                                //Log.d("mesg",rando[i]);
+                                question.setText(rando[i]);
+
+
+                                if (code.displayValue.compareToIgnoreCase(rando[i]) == 0) {
+                                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
+                                            .show();
+                                    ((StoreGlobal) getApplication()).changeScore(5, time_left);
+                                    i++;
+
+                                    Intent in = new Intent(this, ClueScan.class);
+                                    //time left value
+                                    in.putExtra("time",time_left-500);
+                                    //question number
+                                    in.putExtra("question_no",i);
+                                    startActivity(in);
+                                    ClueScan.this.finish();
+                                } else {
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_LONG)
+                                            .show();
+                                }
+                                break;
+                            case 9:
+                                //setting the current question value
+                                currQ.setText(valueS);
+                                //Log.d("mesg",rando[i]);
+                                question.setText(rando[i]);
+
+
+                                if (code.displayValue.compareToIgnoreCase(rando[i]) == 0) {
+                                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
+                                            .show();
+                                    ((StoreGlobal) getApplication()).changeScore(5, time_left);
+                                    i++;
+
+                                    Intent i=new Intent(ClueScan.this,ScoreCal.class);
+                                    startActivity(i);
+                                    ClueScan.this.finish();
+
+                                } else {
+                                    Toast.makeText(this, "You are at wrong place", Toast.LENGTH_LONG)
+                                            .show();
+                                }
+                                break;
 
 
                         }

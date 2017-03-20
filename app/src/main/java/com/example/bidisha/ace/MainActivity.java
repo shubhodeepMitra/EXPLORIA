@@ -17,7 +17,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
      * @mitra00
      * the variable t is for the time limit of the whole event
      */
-    long t=300000;
+    long t=7200000;
 
 
     @Override

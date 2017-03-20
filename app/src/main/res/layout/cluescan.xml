@@ -40,7 +40,7 @@
                 android:layout_toRightOf="@+id/currentQ"
                 android:textColor="#000000"
                 android:textSize="25dp"
-                android:text=" | 20" />
+                android:text=" | 10" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -95,7 +95,7 @@
         android:layout_below="@+id/headerInfo"
         android:layout_marginTop="30dp"
         android:textColor="#FFFFFF"
-        android:textSize="30dp"
+        android:textSize="22dp"
         android:text="@string/clue1" />
 
     <Button
@@ -114,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/scanQR"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="55dp"
         android:text="Scan Results"
         android:textColor="#f44336"
         android:textSize="20dp"

@@ -11,7 +11,9 @@
     <string name="clue3">This is clue 3.....</string>
     <string name="clue4">This is clue 4.....</string>
     <string name="clue5">This is clue 5.....</string>
-    <string name="rules">This is the rules section</string>
+    <string name="rules">1: Camera must be perpendicular to QR code while scanning</string>
+    <string name="rules2">2: Make sure QR code border are even while scanning</string>
+    <string name="rules3">3: Retry scanning if Result shows failed</string>
     <string name="ans1">answer1</string>
     <string name="ans2">answer2</string>
     <string name="ans3">answer3</string>
