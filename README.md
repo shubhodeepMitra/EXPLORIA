@@ -7,4 +7,4 @@ First one needs to name their team and the password is EXPLORIA, then one will g
 Score is based on the time left.
 
 ## Issues
-Gallery crashing for kitkat and lollipop
+Gallery crashing for kitkat and icecream sandwich
